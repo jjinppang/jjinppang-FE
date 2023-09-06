@@ -1,13 +1,14 @@
 import React from 'react'
-import { HashRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from '../pages/Login'
 import Main from '../pages/Main'
 import Signup from '../pages/Signup'
 import EmailLogin from '../pages/EmailLogin'
 
-function App() {
+
+function Router() {
     return (
-        <Router>
+        <BrowserRouter>
             {/* <Navbar clientRef={clientRef} /> */}
             <Routes>
                 <Route path="/main" element={<Main />} />
@@ -15,8 +16,10 @@ function App() {
                 <Route path="/emailLogin" element={<EmailLogin />} />
                 <Route path="/signup" element={<Signup />} />
             </Routes>
-        </Router>
+        </BrowserRouter>
     )
+
+
 }
 
-export default App
+export default Router
