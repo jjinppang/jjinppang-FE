@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar';
+import { register } from '../apis/users';
+import { Navigate } from 'react-router-dom';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -42,6 +44,17 @@ function Signup() {
 
   // 전체 유효성 검사 결과
   const isAllValid = isEmailValid && isPasswordValid && isConfirmPasswordValid;
+
+  const handleSignup = async () => {
+    try {
+      const response = await register(email, password, confirmPassword);
+      // setCookie("userToken", response.token, { path: "/" });
+      Navigate("/main");
+    } catch (error) {
+      // setError("로그인에 실패하였습니다. 다시 시도해주세요.");
+      console.log(error);
+    }
+  };
   
 
 
@@ -78,7 +91,7 @@ function Signup() {
             {!isConfirmPasswordValid && <div class="text-color2 text-[10px] mt-[7px] mb-[12px]" >비밀번호가 일치하지 않습니다.</div>}
           </div>
 
-          <button class={`w-314 h-45 rounded-[10px] ${isAllValid ? 'bg-keyColor' : 'bg-color4'} text-white font-semibold`}>회원가입 완료</button>
+          <button onClick={handleSignup} class={`w-314 h-45 rounded-[10px] ${isAllValid ? 'bg-keyColor' : 'bg-color4'} text-white font-semibold`}>회원가입 완료</button>
         </div>
       </div>
     </>
