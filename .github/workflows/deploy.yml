@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: frontend
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.16.0'
+
+    - name: Install Dependencies
+      run: cd Frontend/jjinppang-fe && yarn install --frozen-lockfile
+      
+    - name: Build
+      run: cd Frontend/jjinppang-fe && yarn build
+      
+  deploy:
+     needs : build-and-test 
+     runs-on : ubuntu-latest 
+
+     steps :
+     - uses : actions/checkout@v2
+     
+    
