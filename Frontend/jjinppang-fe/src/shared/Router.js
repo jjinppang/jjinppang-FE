@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Main from '../pages/Main'
 import Signup from '../pages/Signup'
 import EmailLogin from '../pages/EmailLogin'
+import Redirection from '../socialLogin/Redirection'
 
 
 function Router() {
@@ -15,6 +16,7 @@ function Router() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/emailLogin" element={<EmailLogin />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/login/redirect" element={<Redirection />} />
             </Routes>
         </BrowserRouter>
     )
