@@ -5,17 +5,11 @@ import { ReactComponent as GoogleIcon } from "../assets/googleicon.svg";
 import { ReactComponent as NomalIcon } from "../assets/nomallogin.svg";
 
 function Login() {
-    const KAKAO_AUTH_URL = `http://localhost:3000/oauth2/authorization/kakao?redirect_uri=http://52.79.161.114/oauth2/authorization/kakao `;
+    const KAKAO_AUTH_URL = ` http://52.79.161.114/oauth2/authorization/kakao?redirect_uri=https://localhost:3000/login/redirect`;
 
     const kakaologin = () => {
         window.location.href = KAKAO_AUTH_URL;
     }
-    // const naverlogin = () => {
-    //     window.location.href = NAVER_AUTH_URL;
-    // }
-    // const googlelogin = () => {
-    //     window.location.href = GOOGLE_AUTH_URL;
-    // }
 
     return (
         <div className="login-layout">
