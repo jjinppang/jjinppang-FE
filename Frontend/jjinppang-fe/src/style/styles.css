@@ -9,6 +9,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .mainpage-search {
   width: 614px;
   height: 64px;
@@ -72,6 +73,19 @@
   justify-content: center;
 }
 
+.sidebar-layout {
+  /* Rectangle 60 */
+
+  position: absolute;
+  width: 350px;
+  height: 100vh;
+  left: 0px;
+  top: 0px;
+
+  background: #f4f5ff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .separator {
   display: flex;
   align-items: center;
@@ -96,5 +110,5 @@
 #username::placeholder,
 #password::placeholder,
 #confirmPassword::placeholder {
-   font-size:14px; 
+  font-size: 14px;
 }
