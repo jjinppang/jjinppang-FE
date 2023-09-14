@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios"; // Axios 라이브러리 import
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
+import Navbar from "../components/Navbar";
 import InformationMain from "../components/SideBar/Information/InformationMain";
 
 function Main() {
@@ -26,7 +27,9 @@ function Main() {
   };
 
   return (
-    <div className="mainpage-layout">
+    <>
+    <Navbar/>
+      <div className="mainpage-layout">
       <InformationMain />
       <div className="mt-60 mb-20">
         <div className="mainpage-font">나에게 딱 맞는</div>
@@ -46,9 +49,10 @@ function Main() {
           className="absolute right-4 top-0 h-full flex items-center justify-center"
         >
           <SearchIcon />
-        </button>
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
