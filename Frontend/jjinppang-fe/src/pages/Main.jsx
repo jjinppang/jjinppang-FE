@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
 import { search } from "../apis/search";
-import Navbar from "../components/Navbar";
-import InformationMain from "../components/SideBar/Information/InformationMain";
 
 function Main() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,23 +13,12 @@ function Main() {
     try {
       const data = await search(searchTerm);
       console.log(data);
-
-      const response = await axios.get(`http://52.79.161.114/api/search`, {
-        params: {
-          keyword: searchTerm,
-        },
-      });
-      const data = response.data;
-      console.log(data);
-      // data를 사용하여 화면에 표시
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <>
-    <Navbar/>
       <div className="mainpage-layout">
       <InformationMain />
       <div className="mt-60 mb-20">
@@ -55,7 +42,6 @@ function Main() {
           </button>
         </div>
       </div>
-    </>
   );
 }
 
