@@ -1,7 +1,7 @@
 // api.js
 import axios from "axios";
 
-const BASE_URL = "http://52.79.161.114/api";
+const BASE_URL = "http://52.79.161.114/apidummy";
 
 export const search = async (keyword) => {
   try {

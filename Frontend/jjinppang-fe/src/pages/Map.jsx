@@ -1,7 +1,7 @@
 /*global kakao*/
 import React, { useEffect } from "react";
 
-const Map = () => {
+const Map = ({ searchResults }) => {
   useEffect(() => {
     var container = document.getElementById("map");
 
@@ -26,12 +26,24 @@ const Map = () => {
           position: markerPosition,
         });
         marker.setMap(map);
+
+        if (searchResults) {
+          searchResults.forEach((result) => {
+            var marker = new kakao.maps.Marker({
+              position: new kakao.maps.LatLng(
+                result.location[1],
+                result.location[0]
+              ),
+            });
+            marker.setMap(map);
+          });
+        }
       },
       (error) => {
         console.error(error);
       }
     );
-  }, []);
+  }, [searchResults]);
 
   return (
     <div>
