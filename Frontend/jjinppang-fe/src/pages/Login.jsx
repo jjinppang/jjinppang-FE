@@ -3,6 +3,7 @@ import { ReactComponent as LoginIcon } from "../assets/loginicon.svg";
 import { ReactComponent as KaKaoIcon } from "../assets/kakaoicon.svg";
 import { ReactComponent as GoogleIcon } from "../assets/googleicon.svg";
 import { ReactComponent as NomalIcon } from "../assets/nomallogin.svg";
+import Navbar from "../components/Navbar";
 
 function Login() {
     const KAKAO_AUTH_URL = ` http://52.79.161.114/oauth2/authorization/kakao?redirect_uri=https://localhost:3000/login/redirect`;
@@ -12,6 +13,8 @@ function Login() {
     }
 
     return (
+        <>
+        <Navbar/>
         <div className="login-layout">
             <div class="login-form">
                 <div class="login-layout">
@@ -39,6 +42,8 @@ function Login() {
                 </div>
             </div>
         </div>
+        </>
+        
     );
 }
 

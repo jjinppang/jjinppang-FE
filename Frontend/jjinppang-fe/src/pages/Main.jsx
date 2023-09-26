@@ -22,6 +22,7 @@ function Main() {
 
   return (
     <div className="mainpage-layout">
+      <InformationMain />
       <div className="mt-60 mb-20">
         <div className="mainpage-font">나에게 딱 맞는</div>
         <div className="mainpage-font">동네를 찾아 보세요!</div>
