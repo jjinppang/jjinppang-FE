@@ -1,6 +1,5 @@
 /*global kakao*/
 import React, { useEffect } from "react";
-
 import axios from "axios";
 
 const Map = ({ searchResults }) => {
@@ -57,42 +56,46 @@ const Map = ({ searchResults }) => {
     );
   }, [searchResults]);
 
-  // 지도 생성
-var map = new kakao.maps.Map(document.getElementById('map'), {
-  center: new kakao.maps.LatLng(37.5665, 126.9780), // 중심점 좌표 설정
-  level: 8 // 초기 줌 레벨 설정
-});
+  // // 지도 생성
+  // var map = new kakao.maps.Map(document.getElementById("map"), {
+  //   center: new kakao.maps.LatLng(37.5665, 126.978), // 중심점 좌표 설정
+  //   level: 8, // 초기 줌 레벨 설정
+  // });
 
-// bounds_changed 이벤트 리스너 등록
-kakao.maps.event.addListener(map, 'bounds_changed', function() {
-  var bounds = map.getBounds(); // 현재 지도 영역의 경계 좌표 객체 가져오기
+  // // bounds_changed 이벤트 리스너 등록
+  // kakao.maps.event.addListener(map, "bounds_changed", function () {
+  //   var bounds = map.getBounds(); // 현재 지도 영역의 경계 좌표 객체 가져오기
 
-  var topLat = bounds.getNorth(); // 상단 위도 값
-  var bottomLat = bounds.getSouth(); // 하단 위도 값
-  var topLng = bounds.getWest(); // 왼쪽 경계 경로 값
-  var bottomLng = bounds.getEast(); // 오른쪽 경계 경로 값
+  //   var topLat = bounds.getNorth(); // 상단 위도 값
+  //   var bottomLat = bounds.getSouth(); // 하단 위도 값
+  //   var topLng = bounds.getWest(); // 왼쪽 경계 경로 값
+  //   var bottomLng = bounds.getEast(); // 오른쪽 경계 경로 값
 
-  // 얻은 값을 활용하여 API 요청 등 필요한 작업을 수행합니다.
-  // URL 구성
-  var url = 'http://52.79.161.114/api/region/markers?' +
-            'topLat=' + topLat +
-            '&bottomLat=' + bottomLat +
-            '&topLng=' + topLng +
-            '&bottomLng=' + bottomLng +
-            '&level=0&rentType=string';
+  //   // 얻은 값을 활용하여 API 요청 등 필요한 작업을 수행합니다.
+  //   // URL 구성
+  //   var url =
+  //     "http://52.79.161.114/api/region/markers?" +
+  //     "topLat=" +
+  //     topLat +
+  //     "&bottomLat=" +
+  //     bottomLat +
+  //     "&topLng=" +
+  //     topLng +
+  //     "&bottomLng=" +
+  //     bottomLng +
+  //     "&level=0&rentType=string";
 
-  // Fetch API로 GET 요청 보내기
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      // 응답 데이터 처리
-      console.log(data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-});
-
+  //   // Fetch API로 GET 요청 보내기
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // 응답 데이터 처리
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // });
 
   return (
     <div>
