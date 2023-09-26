@@ -7,7 +7,7 @@ import { getCookie } from '../cookies/Cookie';
 function Navbar() {
     const [user, setUser] = useRecoilState(userState);
     const accessToken = getCookie('accesstoken');
-
+    
     // When the component mounts, get the user's profile
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -20,13 +20,16 @@ function Navbar() {
                 
                 if (response.data.status === "success") {
                     setUser(response.data.data);
+                    // console.log(user)
                 }
             } catch (error) {
                 console.error('Failed to fetch user profile:', error);
             }
         };
 
-        fetchUserProfile();
+        fetchUserProfile().then(() => {
+            console.log(user);
+        });
     }, [setUser, accessToken]);
 
     return (

@@ -4,6 +4,8 @@ export const userState = atom({
     key: 'userState',
     default: {
         email: '',
+        profileImage: '', 
+        nickname: '',
       },
 });
 
