@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 import axios from "axios";
 
-const Map = () => {
+const Map = ({ searchResults }) => {
   useEffect(() => {
     var container = document.getElementById("map");
 
@@ -55,7 +55,7 @@ const Map = () => {
         console.error(error);
       }
     );
-  }, []);
+  }, [searchResults]);
 
   return (
     <div>
