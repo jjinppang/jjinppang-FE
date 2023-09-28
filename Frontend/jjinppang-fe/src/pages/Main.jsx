@@ -15,6 +15,7 @@ function Main() {
     try {
       const data = await search(searchTerm);
       setSearchResults(data.data);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -44,13 +45,50 @@ function Main() {
             <SearchIcon />
           </button>
         </div>
-        <div class=" rounded-b-lg border border-line bg-white ">
-          {searchResults.map((result) => (
-            <div key={result.code}>{result.full_name}</div>
-          ))}
+        <div className=" rounded-b-lg border border-line bg-white">
+          {searchResults.length > 0 && (
+            <div className="flex flex-row justify-around p-4">
+              <div className="flex-shrink-0">
+                <div className="text-blue-600 font-bold text-lg font-sans">
+                  지역명
+                </div>
+                {searchResults.map((rs, index) => (
+                  <div
+                    className="flex-shrink-0 text-text2 font-noto font-medium text-base p-1"
+                    key={index}
+                  >
+                    {rs.fullName}
+                  </div>
+                ))}
+              </div>
+              <div className="flex">
+                <div className="h-280 flex-shrink-0 rounded-b-lg border-r border-line bg-white"></div>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="text-blue-600 font-bold text-lg font-sans">
+                  건물명
+                </div>
+
+                {searchResults.map((rs, index) => (
+                  <div
+                    className="flex-shrink-0 text-text2 font-noto font-medium text-base p-1"
+                    key={index}
+                  >
+                    <div className="flex items-center">
+                      <div>{rs.name}</div>
+                      <div class="text-center font-noto-sans text-xs font-light leading-normal rounded-full border border-[var(--text,#838181)] border-opacity-10 ">
+                        {rs.buildingType}
+                      </div>
+                    </div>
+                    {rs.fullName}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
-      <Map searchResults={searchResults} /> {/* Pass searchResults as a prop */}
+      <Map searchResults={searchResults} />
     </div>
   );
 }
