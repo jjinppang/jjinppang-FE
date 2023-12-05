@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Map = ({ searchResults }) => {
   useEffect(() => {
-    if (window.kakao && window.kakao.maps) { // kakao 객체와 kakao.maps 객체가 있는지 확인
+    if (window.kakao && window.kakao.maps) {
       var container = document.getElementById("map");
 
       navigator.geolocation.getCurrentPosition(
@@ -19,54 +19,85 @@ const Map = ({ searchResults }) => {
 
           var map = new kakao.maps.Map(container, options);
 
+          const requestParams = {
+            topLat: 0,
+            bottomLat: 0,
+            topLng: 0,
+            bottomLng: 0,
+            level: 2,
+            rentType: "string",
+          };
+
           var markerPosition = new kakao.maps.LatLng(
             position.coords.latitude,
             position.coords.longitude
           );
+
           var marker = new kakao.maps.Marker({
             position: markerPosition,
           });
-          
+
           marker.setMap(map);
 
-           // bounds_changed 이벤트 리스너 등록
-           kakao.maps.event.addListener(map, 'bounds_changed', function() {
-             var bounds = map.getBounds(); // 현재 지도 영역의 경계 좌표 객체 가져오기
+          kakao.maps.event.addListener(map, "bounds_changed", function () {
+            var bounds = map.getBounds();
+            var swLatLng = bounds.getSouthWest();
+            var neLatLng = bounds.getNorthEast();
+            var topLat = neLatLng.getLat();
+            var bottomLat = swLatLng.getLat();
+            var bottomLng = neLatLng.getLng();
+            var topLng = swLatLng.getLng();
 
-             var swLatLng = bounds.getSouthWest(); // 남서쪽 좌표
-             var neLatLng = bounds.getNorthEast(); // 북동쪽 좌표
-  
-             var topLat = neLatLng.getLat(); // 상단 위도 값
-             var bottomLat = swLatLng.getLat(); // 하단 위도 값
-             var bottomLng = neLatLng.getLng(); // 왼쪽 경계 경로 값
-             var topLng = swLatLng.getLng(); // 오른쪽 경계 경로 값
+            requestParams.topLat = topLat;
+            requestParams.bottomLat = bottomLat;
+            requestParams.topLng = bottomLng;
+            requestParams.bottomLng = topLng;
 
-  
-              const requestParams ={
-                topLat: topLat,
-                bottomLat: bottomLat,
-                topLng: bottomLng,
-                bottomLng: topLng ,
-                level : 2,
-                rentType: "string"
-              }
-
-               const fetchMarkers= async ()=>{   try {
+            const fetchMarkers = async () => {
+              try {
                 const response = await axios.get(
                   "http://52.79.161.114/api/region/markers",
                   {
                     params: requestParams,
                   }
                 );
-    
-                console.log(response.data);
+
+                response.data.data.forEach((markerInfo) => {
+                  var markerPosition = new kakao.maps.LatLng(
+                    markerInfo.centerLat,
+                    markerInfo.centerLng
+                  );
+
+                  var content = `
+  <div style="position: relative; padding: 10px; background-color: #BCB2FC; border-radius: 5px; text-align: center; color: white;">
+    <div style="position: absolute; top: 100%; left: 50%; margin-left: -10px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #BCB2FC;"></div>
+    <div style="font-weight: bold;">${markerInfo.sigunguName}</div>
+    <div><strong>보증금:</strong> ${markerInfo.depositPrice}</div>
+    <div><strong>월세:</strong> ${markerInfo.monthlyPrice}</div>
+  </div>
+`;
+                  var customOverlay = new kakao.maps.CustomOverlay({
+                    content: content,
+                    position: markerPosition,
+                  });
+
+                  customOverlay.setMap(map);
+
+                  kakao.maps.event.addListener(
+                    customOverlay,
+                    "click",
+                    function () {
+                      customOverlay.setMap(null);
+                    }
+                  );
+                });
               } catch (error) {
                 console.error(error);
-              }}
+              }
+            };
 
-               fetchMarkers();
-
-           });
+            fetchMarkers();
+          });
         },
         (error) => {
           console.error(error);
@@ -77,7 +108,13 @@ const Map = ({ searchResults }) => {
 
   return (
     <div>
-      <div id="map" style={{ width: "100%", height: "100vh" }}></div>
+      <div
+        id="map"
+        style={{
+          width: "100%",
+          height: "100vh",
+        }}
+      ></div>
     </div>
   );
 };
